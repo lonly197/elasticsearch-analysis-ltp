@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment> Analyzer 扩展配置</comment>
+	<!--分词调用接口模式：local/restful -->
+	<entry key="is_local">false</entry>
+	<!--restful api url -->
+	<entry key="api_url">http://192.1.1.114:8118/segment</entry>
+	<!--ltp models -->
+	<entry key="model_path">/home/systex/ltp_project/models/cws.model;/home/systex/ltp_project/models/zhengwu.model</entry>
+</properties>
