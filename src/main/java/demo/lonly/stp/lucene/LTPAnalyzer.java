@@ -24,14 +24,14 @@ public final class LTPAnalyzer extends Analyzer {
     
     @Override
     protected TokenStreamComponents createComponents(String fieldName){
-        Tokenizer BTokenizer = null;
+        Tokenizer tokenizer = null;
         try {
 
-            BTokenizer = new LTPTokenizer();
+            tokenizer = new LTPTokenizer();
         } catch (IOException | JSONException | UnirestException e) {
             e.printStackTrace();
         }
-        return new TokenStreamComponents(BTokenizer);
+        return new TokenStreamComponents(tokenizer);
     }
    
 }

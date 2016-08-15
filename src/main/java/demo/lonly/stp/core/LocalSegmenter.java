@@ -16,7 +16,7 @@ import java.util.List;
  * 本地分词实现
  * Created by Lonly on 2016/7/21.
  */
-public class LocalSegmenter {
+public class LocalSegmenter implements ISegmenter {
     private static ESLogger logger = ESLoggerFactory.getLogger("LocalSegmenter");
 
     //private static String default_path = Configuration.getRoot() + "cws.model";
@@ -59,7 +59,7 @@ public class LocalSegmenter {
     }*/
 
     //@Override
-    public static List<String> segment(String target) {
+    public List<String> segment(String target) {
         // Clean the word token
         List<String> words = new ArrayList<String>();
         // Get the new word token of target

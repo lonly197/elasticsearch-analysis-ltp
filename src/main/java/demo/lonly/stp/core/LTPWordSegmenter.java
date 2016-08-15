@@ -5,6 +5,7 @@
 package demo.lonly.stp.core;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
+import demo.lonly.stp.cfg.Configuration;
 import org.elasticsearch.common.logging.ESLogger;
 import org.elasticsearch.common.logging.ESLoggerFactory;
 import org.json.JSONException;
@@ -24,7 +25,7 @@ public final class LTPWordSegmenter {
 
     private static ESLogger logger = ESLoggerFactory.getLogger("LTPWordSegmenter");
 
-    private ISegmenter segmenter;
+    private  ISegmenter segmenter;
 
     private List<String> words = new ArrayList<String>();
     private Iterator<String> wordsIter = Collections.emptyIterator();
@@ -32,12 +33,12 @@ public final class LTPWordSegmenter {
 
     public LTPWordSegmenter(Reader input) {
         this.input = input;
-        /*if(Configuration.getIsLocal()){
+        if(Configuration.getIsLocal()){
             //segmenter = LocalSegmenterFactory.build(Configuration.getModelPath());
             segmenter = new LocalSegmenter();
         }else{
             segmenter = new RemoteSegmenter(Configuration.getApiUrl());
-        }*/
+        }
 
     }
 
@@ -72,8 +73,7 @@ public final class LTPWordSegmenter {
     public void segment(String target) throws JSONException, UnirestException, IOException {
         // Clean the word token
         this.words.clear();
-        //this.words = segmenter.segment(target);
-        this.words = LocalSegmenter.segment(target);
+        this.words = segmenter.segment(target);
         this.wordsIter = this.words.iterator();
     }
 

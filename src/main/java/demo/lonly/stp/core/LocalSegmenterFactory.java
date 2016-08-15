@@ -24,8 +24,7 @@ public class LocalSegmenterFactory {
         return AccessController.doPrivileged(new PrivilegedAction<LocalSegmenter>() {
             @Override
             public LocalSegmenter run() {
-                //return new LocalSegmenter(path);
-                return null;
+                return new LocalSegmenter();
             }
         });
     }

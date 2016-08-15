@@ -16,7 +16,7 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 /**
- * 配置管理类
+ * 私有配置管理类
  */
 public class Configuration {
 
@@ -42,35 +42,51 @@ public class Configuration {
 
         InputStream input = null;
         try {
+            // 尝试从elasticsearch/config目录下读取配置文件
             logger.info("try load config from {}", configFile);
             input = new FileInputStream(configFile.toFile());
         } catch (FileNotFoundException e) {
             conf_dir = getConfigInPluginDir();
             configFile = conf_dir.resolve(FILE_NAME);
             try {
+                // 尝试从plugins/ltp/config目录下读取配置文件
                 logger.info("try load config from {}", configFile);
                 input = new FileInputStream(configFile.toFile());
             } catch (FileNotFoundException ex) {
-                // We should report origin exception
+                // 记录错误信息
                 logger.error("ltp-analyzer", e);
             }
-        }
-        if (input != null) {
-            try {
-                props.loadFromXML(input);
-                input.close();
-            } catch (InvalidPropertiesFormatException e) {
-                logger.error("ltp-analyzer", e);
-            } catch (IOException e) {
-                logger.error("ltp-analyzer", e);
+        } catch (Exception e) {
+            // 记录错误信息
+            logger.error("ltp-analyzer", e);
+        } finally {
+            if (input != null) {
+                try {
+                    props.loadFromXML(input);
+                    input.close();
+                } catch (InvalidPropertiesFormatException e) {
+                    logger.error("ltp-analyzer", e);
+                } catch (IOException e) {
+                    logger.error("ltp-analyzer", e);
+                }
             }
         }
     }
 
+    /**
+     * 获取es安装目录
+     *
+     * @return
+     */
     public static String getRoot() {
         return conf_dir.toAbsolutePath().toString();
     }
 
+    /**
+     * 获取插件所在目录
+     *
+     * @return
+     */
     private static Path getConfigInPluginDir() {
         return PathUtils.get(new File(
             LTPAnalysisPlugin.class.getProtectionDomain().getCodeSource().getLocation().getPath())

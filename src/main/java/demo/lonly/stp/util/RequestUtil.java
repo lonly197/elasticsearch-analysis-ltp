@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
+ * HTTP Request请求工具类（用于请求Python Flask封装的Restful API）
  * Created by Lonly on 2016/7/19.
  */
 public class RequestUtil {
@@ -49,9 +50,11 @@ public class RequestUtil {
             logger.info(logStr.toString());
 
         } catch (Exception e) {
+            // 错误信息记录
             logger.error("Exception", e, e);
 
         } finally {
+            // 连接释放
             if(connection != null){
                 connection.disconnect();
             }
