@@ -22,7 +22,7 @@ import java.io.IOException;
 
 
 /**
- * Registers indices level analysis components.
+ * 注册indices level analysis components.
  */
 public class LTPIndicesAnalysis extends AbstractComponent {
 
@@ -34,12 +34,12 @@ public class LTPIndicesAnalysis extends AbstractComponent {
 
         Configuration.init(settings,env);
 
-        // Register the ltp type analyzer
+        // 注册ltp type analyzer
         indicesAnalysisService.analyzerProviderFactories().put("ltp",
                 new PreBuiltAnalyzerProviderFactory("ltp", AnalyzerScope.GLOBAL,
                         new LTPAnalyzer()));
 
-        // Register the ltp type tokenizer
+        // 注册ltp type tokenizer
         indicesAnalysisService.tokenizerFactories().put("ltp",
                 new PreBuiltTokenizerFactoryFactory(new TokenizerFactory() {
 

@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * 远程接口调用分词服务实现
  * Created by Lonly on 2016/7/21.
  */
 public class RemoteSegmenter implements ISegmenter {

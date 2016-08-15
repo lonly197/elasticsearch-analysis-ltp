@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.util.List;
 
 /**
+ * 分词接口
  * Created by Lonly on 2016/7/21.
  */
 public interface ISegmenter {

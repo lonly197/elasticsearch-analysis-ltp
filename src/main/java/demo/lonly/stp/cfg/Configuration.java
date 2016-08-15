@@ -15,6 +15,9 @@ import java.nio.file.Path;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
+/**
+ * 配置管理类
+ */
 public class Configuration {
 
     private static ESLogger logger = Loggers.getLogger("ltp-initializer");

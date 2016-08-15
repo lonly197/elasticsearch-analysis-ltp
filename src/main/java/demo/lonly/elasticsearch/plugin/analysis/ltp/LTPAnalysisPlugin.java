@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 /**
+ * 插件的主入口
  * Created by Lonly on 2016/7/18.
  */
 public class LTPAnalysisPlugin extends Plugin {
@@ -23,11 +24,19 @@ public class LTPAnalysisPlugin extends Plugin {
         this.settings = settings;
     }
 
+    /**
+     * 插件名称
+     * @return
+     */
     @Override
     public String name() {
         return PLUGIN_NAME;
     }
 
+    /**
+     * 插件描述
+     * @return
+     */
     @Override
     public String description() {
         return "LTP analysis plugin for elasticsearch.";
@@ -35,6 +44,7 @@ public class LTPAnalysisPlugin extends Plugin {
 
     @Override
     public Collection<Module> nodeModules() {
+        //创建自己的模块集合
         return Collections.<Module> singletonList(new LTPIndicesAnalysisModule());
     }
 

@@ -8,6 +8,7 @@ import java.security.AccessController;
 import java.security.PrivilegedAction;
 
 /**
+ * 本地分词器工厂（暂时没有使用）
  * Created by Lonly on 2016/7/22.
  */
 public class LocalSegmenterFactory {

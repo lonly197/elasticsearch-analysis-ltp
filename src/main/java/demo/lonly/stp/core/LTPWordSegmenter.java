@@ -17,6 +17,9 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * LTP分词
+ */
 public final class LTPWordSegmenter {
 
     private static ESLogger logger = ESLoggerFactory.getLogger("LTPWordSegmenter");

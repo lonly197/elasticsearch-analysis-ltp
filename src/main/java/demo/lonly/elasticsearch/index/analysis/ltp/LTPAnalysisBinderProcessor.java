@@ -5,14 +5,19 @@ import org.elasticsearch.index.analysis.AnalysisModule.AnalysisBinderProcessor;
 
 public class LTPAnalysisBinderProcessor extends AnalysisBinderProcessor {
 
-    /*
-     * It simply adds our analyzer provider class to a list of bindings.
+    /**
+     * 向bindings添加自定义的provider
+     * @param analyzersBindings
      */
     @Override
     public void processAnalyzers(AnalyzersBindings analyzersBindings) {
         analyzersBindings.processAnalyzer(LTPAnalyzerProvider.NAME, LTPAnalyzerProvider.class);
     }
 
+    /**
+     *
+     * @param tokenizersBindings
+     */
     @Override
     public void processTokenizers(TokenizersBindings tokenizersBindings) {
         tokenizersBindings.processTokenizer(LTPTokenizerFactory.NAME, LTPTokenizerFactory.class);

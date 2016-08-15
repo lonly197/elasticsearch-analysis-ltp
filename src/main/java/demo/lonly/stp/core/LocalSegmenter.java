@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 本地分词实现
  * Created by Lonly on 2016/7/21.
  */
 public class LocalSegmenter {
