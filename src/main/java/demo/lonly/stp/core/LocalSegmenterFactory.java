@@ -16,6 +16,7 @@ public class LocalSegmenterFactory {
     public static ESLogger logger = Loggers.getLogger("LocalSegmenterFactory");
 
     public static LocalSegmenter build(String path){
+        // 获取安全管理权限
         final SecurityManager sm = System.getSecurityManager();
         if (sm != null) {
             sm.checkPermission(new SpecialPermission());
