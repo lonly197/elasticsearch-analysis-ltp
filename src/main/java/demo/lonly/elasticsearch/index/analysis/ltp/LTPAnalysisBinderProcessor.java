@@ -2,7 +2,10 @@ package demo.lonly.elasticsearch.index.analysis.ltp;
 
 import org.elasticsearch.index.analysis.AnalysisModule.AnalysisBinderProcessor;
 
-
+/**
+ * 绑定分析器
+ * 分析器的绑定需要继承绑定处理器AnalysisModule.AnalysisBinderProcessor
+ */
 public class LTPAnalysisBinderProcessor extends AnalysisBinderProcessor {
 
     /**

@@ -9,6 +9,10 @@ import org.elasticsearch.index.Index;
 import org.elasticsearch.index.analysis.AbstractIndexAnalyzerProvider;
 import org.elasticsearch.index.settings.IndexSettingsService;
 
+/**
+ * 封装分析器
+ * 与ElasticSearch集成，分词器的配置均从ElasticSearch的配置文件读取，因此，需要重载Analyzer的构造方法，然后继承ElasticSearch的类AbstractIndexAnalyzerProvider
+ */
 public class LTPAnalyzerProvider extends AbstractIndexAnalyzerProvider<LTPAnalyzer> {
     private final LTPAnalyzer analyzer;
     private String TAG_URL;

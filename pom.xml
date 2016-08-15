@@ -15,11 +15,13 @@
         <jdk.version>1.8</jdk.version>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <!-- 针对特定版本的ES -->
         <elasticsearch.version>2.3.2</elasticsearch.version>
         <elasticsearch.assembly.descriptor>${project.basedir}/src/main/assemblies/plugin.xml
         </elasticsearch.assembly.descriptor>
         <elasticsearch.plugin.name>elasticsearch-analysis-ltp</elasticsearch.plugin.name>
-        <elasticsearch.plugin.classname>demo.lonly.elasticsearch.plugin.analysis.ltp.LTPAnalysisPlugin
+        <elasticsearch.plugin.classname>
+            demo.lonly.elasticsearch.plugin.analysis.ltp.LTPAnalysisPlugin
         </elasticsearch.plugin.classname>
         <elasticsearch.plugin.jvm>true</elasticsearch.plugin.jvm>
         <tests.rest.load_packaged>false</tests.rest.load_packaged>
@@ -54,7 +56,7 @@
             <groupId>org.elasticsearch</groupId>
             <artifactId>elasticsearch</artifactId>
             <version>${elasticsearch.version}</version>
-           <!-- <scope>provided</scope>-->
+            <!-- <scope>provided</scope>-->
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.json/json -->
         <dependency>
@@ -82,6 +84,7 @@
     </dependencies>
 
     <build>
+        <finalName>ltp</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -117,7 +120,6 @@
             </plugin>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
-
                 <configuration>
                     <appendAssemblyId>false</appendAssemblyId>
                     <outputDirectory>${project.build.directory}/releases/</outputDirectory>
