@@ -23,6 +23,7 @@ public class LocalSegmenter implements ISegmenter {
     //private List<String> words = new ArrayList<String>();
 
     static{
+        // 加载模型（目前这一步加载失败）
         if (Segmentor.create("/home/systex/ltp_project/models/cws.model",
                 "/home/systex/ltp_project/models/zhengwu.model") < 0) {
             logger.error("LTP Model Load Failed");

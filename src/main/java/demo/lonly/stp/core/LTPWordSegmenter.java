@@ -19,7 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * LTP分词
+ * LTP分词器
  */
 public final class LTPWordSegmenter {
 
@@ -34,9 +34,11 @@ public final class LTPWordSegmenter {
     public LTPWordSegmenter(Reader input) {
         this.input = input;
         if(Configuration.getIsLocal()){
+            // JNI方式调用本地分词模型
             //segmenter = LocalSegmenterFactory.build(Configuration.getModelPath());
             segmenter = new LocalSegmenter();
         }else{
+            // Restful方式调用分词服务
             segmenter = new RemoteSegmenter(Configuration.getApiUrl());
         }
 
