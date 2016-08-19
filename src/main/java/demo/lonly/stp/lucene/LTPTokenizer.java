@@ -11,6 +11,8 @@ import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.tokenattributes.OffsetAttribute;
 import org.apache.lucene.analysis.tokenattributes.PositionIncrementAttribute;
 import org.apache.lucene.analysis.tokenattributes.TypeAttribute;
+import org.elasticsearch.common.logging.ESLogger;
+import org.elasticsearch.common.logging.ESLoggerFactory;
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -21,6 +23,9 @@ import java.util.Iterator;
  *
  */
 public final class LTPTokenizer extends Tokenizer {
+
+    private static ESLogger logger = ESLoggerFactory.getLogger("LTPTokenizer");
+
     // ltp word segmenter
     private LTPWordSegmenter LTPSeg;
     private Iterator<String> wordToken;
@@ -44,6 +49,7 @@ public final class LTPTokenizer extends Tokenizer {
     public LTPTokenizer()
             throws IOException, JSONException, UnirestException {
         super();
+        logger.info("LTPTokenizer Initialize......");
         // Add token offset attribute
         offsetAttr = addAttribute(OffsetAttribute.class);
         // Add token content attribute

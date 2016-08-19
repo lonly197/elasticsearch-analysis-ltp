@@ -1,5 +1,6 @@
 package demo.lonly.elasticsearch.index.analysis.ltp;
 
+import demo.lonly.stp.cfg.Configuration;
 import demo.lonly.stp.lucene.LTPAnalyzer;
 import org.elasticsearch.common.inject.Inject;
 import org.elasticsearch.common.inject.assistedinject.Assisted;
@@ -28,7 +29,8 @@ public class LTPAnalyzerProvider extends AbstractIndexAnalyzerProvider<LTPAnalyz
 
         super(index, indexSettingsService.getSettings(),name, settings);
         this.analyzer = new LTPAnalyzer();
-
+        // 插件私有配置初始化
+        //Configuration.init(settings,env);
     }
 
     @Override

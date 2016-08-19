@@ -1,6 +1,7 @@
 package demo.lonly.elasticsearch.index.analysis.ltp;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
+import demo.lonly.stp.cfg.Configuration;
 import demo.lonly.stp.lucene.LTPTokenizer;
 import org.apache.lucene.analysis.Tokenizer;
 import org.elasticsearch.common.inject.Inject;
@@ -26,6 +27,8 @@ public class LTPTokenizerFactory extends AbstractTokenizerFactory {
     public LTPTokenizerFactory(Index index, IndexSettingsService indexSettingsService, Environment env, @Assisted String name, @Assisted Settings settings) {
         super(index, indexSettingsService.getSettings(), name, settings);
         this.settings = settings;
+        // 插件私有配置初始化
+        //Configuration.init(settings,env);
     }
 
     @Override

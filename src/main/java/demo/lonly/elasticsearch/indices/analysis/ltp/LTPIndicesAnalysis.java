@@ -26,12 +26,15 @@ import java.io.IOException;
  */
 public class LTPIndicesAnalysis extends AbstractComponent {
 
-    //private static final ESLogger logger = ESLoggerFactory.getLogger("ltp-module");
+    private static final ESLogger logger = ESLoggerFactory.getLogger("LTPIndicesAnalysis");
 
     @Inject
     public LTPIndicesAnalysis(final Settings settings, IndicesAnalysisService indicesAnalysisService, Environment env) {
         super(settings);
 
+        logger.info("LTPIndicesAnalysis Initialize......");
+
+        // 插件私有配置初始化
         Configuration.init(settings,env);
 
         // 注册ltp type analyzer

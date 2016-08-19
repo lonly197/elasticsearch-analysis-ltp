@@ -1,14 +1,9 @@
 package demo.lonly.stp.core;
 
-import demo.lonly.stp.cfg.Configuration;
 import edu.hit.ir.ltp4j.Segmentor;
-import org.elasticsearch.SpecialPermission;
-import org.elasticsearch.common.Strings;
 import org.elasticsearch.common.logging.ESLogger;
 import org.elasticsearch.common.logging.ESLoggerFactory;
 
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,18 +11,19 @@ import java.util.List;
  * 本地分词实现
  * Created by Lonly on 2016/7/21.
  */
-public class LocalSegmenter implements ISegmenter {
+public final class LocalSegmenter implements ISegmenter {
     private static ESLogger logger = ESLoggerFactory.getLogger("LocalSegmenter");
 
     //private static String default_path = Configuration.getRoot() + "cws.model";
     //private List<String> words = new ArrayList<String>();
 
-    static{
-        // 加载模型（目前这一步加载失败）
+    static {
+        logger.error("LTP Model Load Starting......");
+        // 加载模型
         if (Segmentor.create("/home/systex/ltp_project/models/cws.model",
-                "/home/systex/ltp_project/models/zhengwu.model") < 0) {
+            "/home/systex/ltp_project/models/zhengwu.model") < 0) {
             logger.error("LTP Model Load Failed");
-        }else{
+        } else {
             logger.info("LTP Model Load Successed");
         }
     }

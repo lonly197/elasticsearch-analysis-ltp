@@ -25,22 +25,23 @@ public final class LTPWordSegmenter {
 
     private static ESLogger logger = ESLoggerFactory.getLogger("LTPWordSegmenter");
 
-    private  ISegmenter segmenter;
+    private static ISegmenter segmenter = new LocalSegmenter();;
 
     private List<String> words = new ArrayList<String>();
     private Iterator<String> wordsIter = Collections.emptyIterator();
     private Reader input;
 
     public LTPWordSegmenter(Reader input) {
+        logger.info("LTPWordSegmenter Initialize......");
         this.input = input;
-        if(Configuration.getIsLocal()){
+        /*if(Configuration.getIsLocal()){
             // JNI方式调用本地分词模型
             //segmenter = LocalSegmenterFactory.build(Configuration.getModelPath());
             segmenter = new LocalSegmenter();
         }else{
             // Restful方式调用分词服务
             segmenter = new RemoteSegmenter(Configuration.getApiUrl());
-        }
+        }*/
 
     }
 
@@ -75,7 +76,9 @@ public final class LTPWordSegmenter {
     public void segment(String target) throws JSONException, UnirestException, IOException {
         // Clean the word token
         this.words.clear();
+        logger.info("LTPWordSegmenter Segmenter Target:"+target);
         this.words = segmenter.segment(target);
+        logger.info("LTPWordSegmenter Segmenter Words:"+words.toString());
         this.wordsIter = this.words.iterator();
     }
 
