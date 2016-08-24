@@ -47,7 +47,6 @@ public class RequestUtil {
             logStr.append(" responseCode:" + connection.getResponseCode());
             logStr.append(" responseMessage:" + connection.getResponseMessage());
             logStr.append(" content:" + rspMsg);
-            logger.info(logStr.toString());
 
         } catch (Exception e) {
             // 错误信息记录

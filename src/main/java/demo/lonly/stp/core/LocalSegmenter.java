@@ -1,9 +1,12 @@
 package demo.lonly.stp.core;
 
 import edu.hit.ir.ltp4j.Segmentor;
+import org.elasticsearch.SpecialPermission;
 import org.elasticsearch.common.logging.ESLogger;
 import org.elasticsearch.common.logging.ESLoggerFactory;
 
+import java.security.AccessController;
+import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +21,25 @@ public final class LocalSegmenter implements ISegmenter {
     //private List<String> words = new ArrayList<String>();
 
     static {
+        logger.info("Grant Permission");
+        SecurityManager sm = System.getSecurityManager();
+        if (sm != null) {
+            // unprivileged code such as scripts do not have SpecialPermission
+            sm.checkPermission(new SpecialPermission());
+        }
+        AccessController.doPrivileged(
+            // sensitive operation
+            new PrivilegedAction<Boolean>() {
+                public Boolean run() {
+                    logger.info("PrivilegedAction Load Model");
+                    LoadModel();
+                    return Boolean.TRUE;
+                }
+            });
+
+    }
+
+    private static void LoadModel() {
         logger.error("LTP Model Load Starting......");
         // 加载模型
         if (Segmentor.create("/home/systex/ltp_project/models/cws.model",
