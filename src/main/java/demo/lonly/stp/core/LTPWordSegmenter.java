@@ -5,7 +5,6 @@
 package demo.lonly.stp.core;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
-import demo.lonly.stp.cfg.Configuration;
 import org.elasticsearch.common.logging.ESLogger;
 import org.elasticsearch.common.logging.ESLoggerFactory;
 import org.json.JSONException;
@@ -25,14 +24,13 @@ public final class LTPWordSegmenter {
 
     private static ESLogger logger = ESLoggerFactory.getLogger("LTPWordSegmenter");
 
-    private static ISegmenter segmenter = new LocalSegmenter();;
+    private static ISegmenter segmenter = new LocalSegmenter();
 
     private List<String> words = new ArrayList<String>();
     private Iterator<String> wordsIter = Collections.emptyIterator();
     private Reader input;
 
     public LTPWordSegmenter(Reader input) {
-        logger.info("LTPWordSegmenter Initialize......");
         this.input = input;
         /*if(Configuration.getIsLocal()){
             // JNI方式调用本地分词模型
@@ -76,10 +74,16 @@ public final class LTPWordSegmenter {
     public void segment(String target) throws JSONException, UnirestException, IOException {
         // Clean the word token
         this.words.clear();
-        logger.info("LTPWordSegmenter Segmenter Target:"+target);
-        this.words = segmenter.segment(target);
-        logger.info("LTPWordSegmenter Segmenter Words:"+words.toString());
-        this.wordsIter = this.words.iterator();
+        try {
+            this.words = segmenter.segment(target);
+        } catch (Exception e) {
+            logger.error("LTP Segmenter Error", e);
+        } finally {
+            this.wordsIter = this.words.iterator();
+        }
+
+
+
     }
 
     public void reset(Reader input) throws IOException, JSONException, UnirestException {

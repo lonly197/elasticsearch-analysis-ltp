@@ -25,7 +25,7 @@ public class RequestUtil {
     public static String doRequest(URL url) {
         HttpURLConnection connection = null;
         String rspMsg = "";
-        StringBuilder logStr = new StringBuilder();
+       /* StringBuilder logStr = new StringBuilder();*/
         try {
             // 初始化连接信息
             connection = (HttpURLConnection) url.openConnection();
@@ -43,15 +43,14 @@ public class RequestUtil {
             }
 
             // 状态记录
-            logStr.append(" requestUrl:" + connection.getURL());
+           /* logStr.append(" requestUrl:" + connection.getURL());
             logStr.append(" responseCode:" + connection.getResponseCode());
             logStr.append(" responseMessage:" + connection.getResponseMessage());
-            logStr.append(" content:" + rspMsg);
-            logger.info(logStr.toString());
+            logStr.append(" content:" + rspMsg);*/
 
         } catch (Exception e) {
             // 错误信息记录
-            logger.error("Exception", e, e);
+            logger.error("RequestUtil", e, e);
 
         } finally {
             // 连接释放
