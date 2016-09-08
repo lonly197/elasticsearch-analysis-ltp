@@ -8,4 +8,6 @@
 	<entry key="api_url">http://192.1.1.114:8118/segment</entry>
 	<!--ltp models -->
 	<entry key="model_path">/home/systex/ltp_project/models/cws.model;/home/systex/ltp_project/models/zhengwu.model</entry>
+    <!--stop dict -->
+    <entry key="stop_path">/home/search/es2ltp/plugins/ltp/dic/stopLibrary.dic</entry>
 </properties>

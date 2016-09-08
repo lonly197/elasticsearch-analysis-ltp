@@ -55,7 +55,7 @@ public class LTPIndicesAnalysis extends AbstractComponent {
                     public Tokenizer create() {
                         LTPTokenizer token = null;
                         try {
-                            token = new LTPTokenizer();
+                            token = new LTPTokenizer(Configuration.getFilters());
                         } catch (JSONException | IOException | UnirestException e) {
 
                             e.printStackTrace();

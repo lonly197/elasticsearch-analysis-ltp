@@ -17,6 +17,7 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Set;
 
 /**
  * Implementation of LTP word segmenter on Lucene Tokenizer interface
@@ -25,15 +26,16 @@ import java.util.Iterator;
 public final class LTPTokenizer extends Tokenizer {
 
     private static ESLogger logger = ESLoggerFactory.getLogger("LTPTokenizer");
-
-    // ltp word segmenter
-    private LTPWordSegmenter LTPSeg;
-    private Iterator<String> wordToken;
     // Attributes to be added
     private final CharTermAttribute charTermAttr;
     private final OffsetAttribute offsetAttr;
     private final TypeAttribute typeAttr;
     private final PositionIncrementAttribute piAttr;
+    // ltp word segmenter
+    private LTPWordSegmenter LTPSeg;
+    private Iterator<String> wordToken;
+    // 过滤词
+    private Set<String> filter;
 
     // others
     private int endPosition = -1;
@@ -46,7 +48,7 @@ public final class LTPTokenizer extends Tokenizer {
      * @throws JSONException
      * @throws IOException
      */
-    public LTPTokenizer()
+    public LTPTokenizer(Set<String> filter)
             throws IOException, JSONException, UnirestException {
         super();
         logger.info("LTPTokenizer Initialize......");
@@ -60,6 +62,8 @@ public final class LTPTokenizer extends Tokenizer {
         piAttr = addAttribute(PositionIncrementAttribute.class);
         // Create a new word segmenter to get tokens
         LTPSeg = new LTPWordSegmenter(input);
+        // Add filter words set
+        this.filter = filter;
     }
 
     @Override
@@ -67,14 +71,31 @@ public final class LTPTokenizer extends Tokenizer {
         // clear all the attributes
         clearAttributes();
         if (wordToken.hasNext()) {
-            String word = wordToken.next();
-            piAttr.setPositionIncrement(extraIncrement + 1);
-            charTermAttr.append(word);
-            charTermAttr.setLength(word.length());
-            offsetAttr.setOffset(endPosition + 1, endPosition + word.length() + 1);
-            // The type can be extended later
-            typeAttr.setType("word");
-            endPosition += word.length();
+            String word = null;
+            // 过滤停用词
+            boolean flag = true;
+            while (flag) {
+                word = wordToken.next();
+                if (word == null)
+                    break;
+                if (this.filter != null && this.filter.contains(word)) {
+                    ++extraIncrement;
+                    endPosition += word.length();
+                } else {
+                    flag = false;
+                }
+                if (!wordToken.hasNext())
+                    break;
+            }
+            if (word != null) {
+                piAttr.setPositionIncrement(extraIncrement + 1);
+                charTermAttr.append(word);
+                charTermAttr.setLength(word.length());
+                offsetAttr.setOffset(endPosition + 1, endPosition + word.length() + 1);
+                // The type can be extended later
+                typeAttr.setType("word");
+                endPosition += word.length();
+            }
             return true;
         }
         // No more token

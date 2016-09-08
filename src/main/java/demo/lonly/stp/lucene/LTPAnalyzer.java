@@ -5,6 +5,7 @@
 package demo.lonly.stp.lucene;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
+import demo.lonly.stp.cfg.Configuration;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.Tokenizer;
 import org.json.JSONException;
@@ -27,7 +28,7 @@ public final class LTPAnalyzer extends Analyzer {
         Tokenizer tokenizer = null;
         try {
 
-            tokenizer = new LTPTokenizer();
+            tokenizer = new LTPTokenizer(Configuration.getFilters());
         } catch (IOException | JSONException | UnirestException e) {
             e.printStackTrace();
         }

@@ -16,19 +16,18 @@ import org.json.JSONException;
 import java.io.IOException;
 
 public class LTPTokenizerFactory extends AbstractTokenizerFactory {
-    private final Settings settings;
-    private String TAG_URL;
-
     // The name is associate with this class, which will be
     // called in BinderProcesser
     public static final String NAME = "ltp";
+    private final Settings settings;
+    private String TAG_URL;
 
     @Inject
     public LTPTokenizerFactory(Index index, IndexSettingsService indexSettingsService, Environment env, @Assisted String name, @Assisted Settings settings) {
         super(index, indexSettingsService.getSettings(), name, settings);
         this.settings = settings;
         // 插件私有配置初始化
-        //Configuration.init(settings,env);
+        Configuration.init(settings, env);
     }
 
     @Override
@@ -38,7 +37,7 @@ public class LTPTokenizerFactory extends AbstractTokenizerFactory {
 
 
         try {
-            tokenizer = new LTPTokenizer();
+            tokenizer = new LTPTokenizer(Configuration.getFilters());
         } catch (IOException | JSONException | UnirestException e) {
             e.printStackTrace();
         }
